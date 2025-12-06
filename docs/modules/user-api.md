@@ -9,6 +9,7 @@ POST /api/v1/users/register
   "phone": "18800001111"
 }
 ```
+
 返回
 ```json
 {
