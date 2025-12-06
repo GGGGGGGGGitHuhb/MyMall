@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import com.example.mall.dto.UserLoginDTO;
 import com.example.mall.dto.UserRegisterDTO;
 import com.example.mall.entity.User;
+import com.example.mall.exception.BizException;
+import com.example.mall.exception.ErrorCode;
 import com.example.mall.mapper.UserMapper;
 import com.example.mall.service.UserService;
 import com.example.mall.vo.UserVO;
@@ -29,7 +31,7 @@ public class UserServiceImpl implements UserService {
         // 用户名是否已存在
         User exist = userMapper.findByUsername(dto.getUsername());
         if (exist != null) {
-            throw new RuntimeException("用户名已存在");
+        throw new BizException(ErrorCode.USER_EXIST.code(), ErrorCode.USER_EXIST.msg());
         }
 
         // 创建用户实体
@@ -53,11 +55,11 @@ public class UserServiceImpl implements UserService {
 
         User user = userMapper.findByUsername(dto.getUsername());
         if (user == null) {
-            throw new RuntimeException("用户不存在");
+            throw new BizException(ErrorCode.USER_NOT_EXIST.code(), ErrorCode.USER_NOT_EXIST.msg());
         }
 
         if (!user.getPassword().equals(dto.getPassword())) {
-            throw new RuntimeException("密码错误");
+            throw new BizException(ErrorCode.PASSWORD_ERROR.code(), ErrorCode.PASSWORD_ERROR.msg());
         }
 
         // 转换为 VO

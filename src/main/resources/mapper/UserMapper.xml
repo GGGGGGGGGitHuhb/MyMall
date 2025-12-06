@@ -6,14 +6,14 @@
 
     <!-- 登录: 根据用户名查询 -->
     <select id="findByUsername" resultType="com.example.mall.entity.User">
-        SELECT id, username, password
+        SELECT id, username, password, phone
         FROM user
         WHERE username = #{username}
         LIMIT 1
     </select>
 
     <!-- 注册: 新增用户 -->
-    <insert id="insert" parameterType="com.example.mall.entity.User">
+    <insert id="insert" parameterType="com.example.mall.entity.User" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO user (username, password, phone, create_time)
         VALUES (#{username}, #{password}, #{phone}, NOW())
     </insert>
