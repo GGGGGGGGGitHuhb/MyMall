@@ -5,7 +5,7 @@
 <mapper namespace="com.example.mall.mapper.ProductMapper">
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO product (name, price, stock, description, image_url, create_time, status)
+        INSERT INTO product(name, price, stock, description, image_url, create_time, status)
         VALUES (#{name}, #{price}, #{stock}, #{description}, #{imageUrl}, NOW(), 1)
     </insert>
 

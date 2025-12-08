@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.mall.mapper.CartItemMapper">
+
+    <select id="findByUserAndProduct" resultType="com.example.mall.entity.CartItem">
+        SELECT
+            id,
+            user_id AS userId,
+            product_id AS productId,
+            quantity,
+            create_time AS createTime
+        FROM cart_item
+        WHERE user_id = #{userId} AND product_id = #{productId}
+    </select>
+
+    <select id="findByUserId" resultType="com.example.mall.entity.CartItem">
+        SELECT
+            id,
+            user_id AS userId,
+            product_id AS productId,
+            quantity,
+            create_time AS createTime
+        FROM cart_item
+        WHERE user_id = #{userId}
+        ORDER BY create_time DESC
+    </select>
+
+    <select id="findById" resultType="com.example.mall.entity.CartItem">
+        SELECT
+            id,
+            user_id AS userId,
+            product_id AS productId,
+            quantity,
+            create_time AS createTime
+        FROM cart_item
+        WHERE id = #{id}
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO cart_item(user_id, product_id, quantity, create_time)
+    VALUES (#{userId}, #{productId}, #{quantity}, NOW())
+    </insert>
+
+    <update id="updateQuantity">
+        UPDATE cart_item
+        SET quantity = #{quantity}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM cart_item WHERE id = #{id}
+    </delete>
+</mapper>

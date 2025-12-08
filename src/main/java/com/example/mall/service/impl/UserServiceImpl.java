@@ -10,6 +10,7 @@ import com.example.mall.mapper.UserMapper;
 import com.example.mall.service.UserService;
 import com.example.mall.util.JwtUtil;
 import com.example.mall.vo.UserVO;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,14 +18,11 @@ import org.springframework.stereotype.Service;
 import static java.time.LocalTime.now;
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
     // 构造器注入
     private final UserMapper userMapper;
-
-    public UserServiceImpl(UserMapper userMapper) {
-        this.userMapper = userMapper;
-    }
 
     @Override
     public UserVO register(UserRegisterDTO dto) {

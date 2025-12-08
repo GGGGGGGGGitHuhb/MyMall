@@ -1,0 +1,15 @@
+package com.example.mall.mapper;
+
+import com.example.mall.entity.OrderItem;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+
+@Mapper
+public interface OrderItemMapper {
+
+    int insertBatch(@Param("items") java.util.List<OrderItem> items);
+
+    java.util.List<OrderItem> findByOrderId(@Param("orderId") Long orderId);
+}
