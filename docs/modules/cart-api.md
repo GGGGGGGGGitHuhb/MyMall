@@ -1,8 +1,8 @@
 ## 查看购物车
-GET /api/v1/cart
+GET /api/v1/cart/items
 
 ## 添加商品
-POST /api/v1/cart
+POST /api/v1/cart/items
 
 请求：
 ```json
@@ -13,7 +13,7 @@ POST /api/v1/cart
 ```
 
 ## 修改数量
-PUT /api/v1/cart/{cartItemId}
+PUT /api/v1/cart/items/{cartItemId}
 
 请求：
 ```json
@@ -23,4 +23,4 @@ PUT /api/v1/cart/{cartItemId}
 ```
 
 ## 删除购物车项
-DELETE /api/v1/cart/{cartItemId}
+DELETE /api/v1/cart/items/{cartItemId}

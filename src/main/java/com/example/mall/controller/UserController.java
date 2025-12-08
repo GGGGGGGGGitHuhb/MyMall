@@ -5,17 +5,15 @@ import com.example.mall.dto.UserLoginDTO;
 import com.example.mall.dto.UserRegisterDTO;
 import com.example.mall.service.UserService;
 import com.example.mall.vo.UserVO;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/users")
+@RequiredArgsConstructor
 public class UserController {
 
     private final UserService userService;
-
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
 
     // 注册
     @PostMapping("/register")

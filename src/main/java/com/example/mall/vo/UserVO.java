@@ -10,4 +10,6 @@ public class UserVO {
     private String username;
 
     private String phone;
+
+    private String token;
 }

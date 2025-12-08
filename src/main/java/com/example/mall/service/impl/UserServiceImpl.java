@@ -8,6 +8,7 @@ import com.example.mall.exception.BizException;
 import com.example.mall.exception.ErrorCode;
 import com.example.mall.mapper.UserMapper;
 import com.example.mall.service.UserService;
+import com.example.mall.util.JwtUtil;
 import com.example.mall.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -63,10 +64,12 @@ public class UserServiceImpl implements UserService {
         }
 
         // 转换为 VO
+        String token = JwtUtil.generateToken(user.getId(), user.getUsername());
         UserVO vo = new UserVO();
         vo.setId(user.getId());
         vo.setUsername(user.getUsername());
         vo.setPhone(user.getPhone());
+        vo.setToken(token);
         return vo;
     }
 }
