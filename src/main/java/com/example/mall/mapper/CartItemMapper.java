@@ -4,6 +4,7 @@ import java.util.List;
 import com.example.mall.entity.CartItem;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Property;
 
 @Mapper
 public interface CartItemMapper {
@@ -21,4 +22,6 @@ public interface CartItemMapper {
                        @Param("quantity") Integer quantity);
 
     int delete(Long id);
+
+    int clearByUserId(@Param("userId") Long userId);
 }

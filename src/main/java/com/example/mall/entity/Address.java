@@ -1,21 +1,20 @@
 package com.example.mall.entity;
 
 import lombok.Data;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
-public class Order {
+public class Address {
 
     private Long id;
 
     private Long userId;
 
-    private Long addressId;
+    private String receiverName;
 
-    private BigDecimal totalPrice;
+    private String receiverPhone;
 
-    private Integer status;       // 0=已创建, 1=已取消
+    private String fullAddress;
 
     private LocalDateTime createTime;
 }

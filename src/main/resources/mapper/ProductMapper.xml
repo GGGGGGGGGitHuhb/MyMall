@@ -3,26 +3,25 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.mall.mapper.ProductMapper">
+    <resultMap id="productMap" type="com.example.mall.entity.Product">
+        <id property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="addressId" column="address_id"/>
+        <result property="totalPrice" column="total_price"/>
+        <result property="status" column="status"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO product(name, price, stock, description, image_url, create_time, status)
         VALUES (#{name}, #{price}, #{stock}, #{description}, #{imageUrl}, NOW(), 1)
     </insert>
 
-    <select id="findById" resultType="com.example.mall.entity.Product">
-        SELECT
-            id,
-            name,
-            price,
-            stock,
-            description,
-            image_url AS imageUrl,
-            create_time AS createTime,
-            status
-        FROM product WHERE id = #{id}
+    <select id="findById" resultType="com.example.mall.entity.Product" resultMap="productMap">
+        SELECT * FROM product WHERE id = #{id}
     </select>
 
-    <select id="findAll" resultType="com.example.mall.entity.Product">
+    <select id="findAll" resultType="com.example.mall.entity.Product" resultMap="productMap">
         SELECT
             id,
             name,
@@ -38,4 +37,18 @@
     <update id="updateStatus">
         UPDATE product SET status = #{status} WHERE id = #{id}
     </update>
+
+    <update id="reduceStock">
+        UPDATE product
+        SET stock = stock - #{count}
+        WHERE id = #{id}
+          AND stock >= #{count};
+    </update>
+
+    <update id="increaseStock">
+        UPDATE product
+        SET stock = stock + #{count}
+        WHERE id = #{id};
+    </update>
+
 </mapper>

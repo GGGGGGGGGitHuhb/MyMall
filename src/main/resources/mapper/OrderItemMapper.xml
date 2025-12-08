@@ -3,6 +3,13 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.mall.mapper.OrderItemMapper">
+    <resultMap id="orderItemMap" type="com.example.mall.entity.OrderItem">
+        <id property="id" column="id"/>
+        <result property="orderId" column="order_id"/>
+        <result property="productId" column="product_id"/>
+        <result property="quantity" column="quantity"/>
+        <result property="price" column="price"/>
+    </resultMap>
 
     <insert id="insertBatch">
         INSERT INTO order_item (order_id, product_id, quantity, price)
@@ -12,10 +19,8 @@
         </foreach>
     </insert>
 
-    <select id="findByOrderId" resultType="com.example.mall.entity.OrderItem">
-        SELECT id, order_id, product_id, quantity, price
-        FROM order_item
-        WHERE order_id = #{orderId}
+    <select id="findByOrderId" resultType="com.example.mall.entity.OrderItem" resultMap="orderItemMap">
+        SELECT * FROM order_item WHERE order_id = #{orderId}
     </select>
 
 </mapper>

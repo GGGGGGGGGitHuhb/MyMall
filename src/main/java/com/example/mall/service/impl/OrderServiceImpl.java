@@ -5,13 +5,17 @@ import java.util.ArrayList;
 import java.util.List;
 import com.example.mall.dto.OrderCreateDTO;
 import com.example.mall.entity.CartItem;
+import com.example.mall.entity.Order;
 import com.example.mall.entity.OrderItem;
 import com.example.mall.entity.Product;
 import com.example.mall.exception.BizException;
+import com.example.mall.mapper.CartItemMapper;
 import com.example.mall.mapper.OrderItemMapper;
 import com.example.mall.mapper.OrderMapper;
 import com.example.mall.mapper.ProductMapper;
 import com.example.mall.service.OrderService;
+import com.example.mall.vo.OrderItemVO;
+import com.example.mall.vo.OrderVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +26,7 @@ public class OrderServiceImpl implements OrderService {
 
     private final OrderMapper orderMapper;
     private final OrderItemMapper orderItemMapper;
-    private final CartMapper cartMapper;
+    private final CartItemMapper cartItemMapper;
     private final ProductMapper productMapper;
 
     @Transactional
@@ -30,7 +34,7 @@ public class OrderServiceImpl implements OrderService {
     public Long createOrder(Long userId, OrderCreateDTO dto) {
 
         // 1. 查询购物车
-        List<CartItem> cartItems = cartMapper.findByUserId(userId);
+        List<CartItem> cartItems = cartItemMapper.findByUserId(userId);
         if (cartItems.isEmpty()) {
             throw new BizException(3001, "购物车为空");
         }
@@ -80,7 +84,7 @@ public class OrderServiceImpl implements OrderService {
         orderItemMapper.insertBatch(orderItems);
 
         // 5. 清空购物车（根据业务决定，我建议清空）
-        cartMapper.clearByUserId(userId);
+        cartItemMapper.clearByUserId(userId);
 
         return orderId;
     }

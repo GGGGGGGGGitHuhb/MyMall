@@ -11,7 +11,6 @@ import com.example.mall.exception.BizException;
 import com.example.mall.mapper.CartItemMapper;
 import com.example.mall.mapper.ProductMapper;
 import com.example.mall.service.CartService;
-import com.example.mall.service.ProductService;
 import com.example.mall.vo.CartItemVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

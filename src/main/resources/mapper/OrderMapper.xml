@@ -3,16 +3,22 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.mall.mapper.OrderMapper">
+    <resultMap id="orderMap" type="com.example.mall.entity.Order">
+        <id property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="addressId" column="address_id"/>
+        <result property="totalPrice" column="total_price"/>
+        <result property="status" column="status"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO orders (user_id, address_id, total_price, status, create_time)
         VALUES (#{userId}, #{addressId}, #{totalPrice}, #{status}, NOW());
     </insert>
 
-    <select id="findById" resultType="com.example.mall.entity.Order">
-        SELECT id, user_id, address_id, total_price, status, create_time
-        FROM orders
-        WHERE id = #{id}
+    <select id="findById" resultType="com.example.mall.entity.Order" resultMap="orderMap">
+        SELECT * FROM orders WHERE id = #{id}
     </select>
 
     <update id="updateStatus">
