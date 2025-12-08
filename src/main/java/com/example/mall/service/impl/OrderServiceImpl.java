@@ -29,6 +29,9 @@ public class OrderServiceImpl implements OrderService {
     private final CartItemMapper cartItemMapper;
     private final ProductMapper productMapper;
 
+    private final int ORDER_VALID = 1;
+    private final int ORDER_CANCELED = 0;
+
     @Transactional
     @Override
     public Long createOrder(Long userId, OrderCreateDTO dto) {
@@ -73,7 +76,7 @@ public class OrderServiceImpl implements OrderService {
         order.setUserId(userId);
         order.setAddressId(dto.getAddressId());
         order.setTotalPrice(total);
-        order.setStatus(0);
+        order.setStatus(ORDER_VALID);
         orderMapper.insert(order);
 
         // 获取主键
@@ -135,7 +138,7 @@ public class OrderServiceImpl implements OrderService {
             throw new BizException(1004, "无权限");
         }
 
-        if (order.getStatus() != 0) {
+        if (order.getStatus() == ORDER_CANCELED) {
             return; // 已取消就不重复取消
         }
 
@@ -146,7 +149,7 @@ public class OrderServiceImpl implements OrderService {
         }
 
         // 2. 修改状态
-        orderMapper.updateStatus(orderId, 1);
+        orderMapper.updateStatus(orderId, ORDER_CANCELED);
     }
 }
 

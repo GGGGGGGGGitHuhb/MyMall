@@ -7,9 +7,14 @@ import java.util.List;
 
 @Data
 public class OrderVO {
+
     private Long id;
+
     private BigDecimal totalPrice;
+
     private Integer status;
+
     private LocalDateTime createTime;
+
     private List<OrderItemVO> items;
 }
