@@ -16,6 +16,7 @@ import com.example.mall.mapper.ProductMapper;
 import com.example.mall.service.OrderService;
 import com.example.mall.vo.OrderItemVO;
 import com.example.mall.vo.OrderVO;
+import com.example.mall.vo.ProductVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -93,6 +94,16 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public List<OrderVO> listOrders(Long userId) {
+        List<Order> list = orderMapper.findByUserId(userId);
+        List<OrderVO> result = new ArrayList<>();
+        for (Order o : list) {
+            result.add(toVO(o));
+        }
+        return result;
+    }
+
+    @Override
     public OrderVO getOrderDetail(Long userId, Long orderId) {
         Order order = orderMapper.findById(orderId);
         if (order == null) {
@@ -150,6 +161,15 @@ public class OrderServiceImpl implements OrderService {
 
         // 2. 修改状态
         orderMapper.updateStatus(orderId, ORDER_CANCELED);
+    }
+
+    private OrderVO toVO(Order o) {
+        OrderVO vo = new OrderVO();
+        vo.setId(o.getId());
+        vo.setTotalPrice(o.getTotalPrice());
+        vo.setStatus(o.getStatus());
+        vo.setCreateTime(o.getCreateTime());
+        return vo;
     }
 }
 

@@ -21,6 +21,10 @@
         SELECT * FROM orders WHERE id = #{id}
     </select>
 
+    <select id="findByUserId" resultType="com.example.mall.entity.Order" resultMap="orderMap">
+        SELECT * FROM orders WHERE user_id = #{userId} ORDER BY create_time DESC
+    </select>
+
     <update id="updateStatus">
         UPDATE orders
         SET status = #{status}

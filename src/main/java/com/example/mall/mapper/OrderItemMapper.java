@@ -10,5 +10,5 @@ public interface OrderItemMapper {
 
     int insertBatch(@Param("items") List<OrderItem> items);
 
-    java.util.List<OrderItem> findByOrderId(@Param("orderId") Long orderId);
+    List<OrderItem> findByOrderId(@Param("orderId") Long orderId);
 }
